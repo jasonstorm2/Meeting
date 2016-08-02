@@ -7,6 +7,6 @@ import org.gof.core.gen.entity.Entity;
 public enum sort {
 	@Column(type = int.class, index = true,comment = "事务类别号")
 	sortId,
-	@Column(type = String.class, length = 64, comment = "事务类别名")
+	@Column(type = String.class, length = 20, comment = "事务类别名")
 	name,
 }

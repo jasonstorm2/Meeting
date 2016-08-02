@@ -15,7 +15,7 @@ public class AffairHandle {
 	ResultSet rs;
 	
 	/**
-	 * ¼ÆËãÓÐ Êý¾Ý±í ÓÐ¼¸Ìõ¼ÇÂ¼
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý±ï¿½ ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @return
 	 */
 	public int recordCount(){
@@ -24,10 +24,10 @@ public class AffairHandle {
 	    	con = DatabaseFactory.connectDatabase();
 		    if(con==null){
 		    }
-	    	stmt = con.createStatement();//ÓÃÓÚÖ´ÐÐ¾²Ì¬ SQL Óï¾ä²¢·µ»ØËüËùÉú³É½á¹ûµÄ¶ÔÏó¡£´´½¨Ò»¸ö Statement ¶ÔÏóÀ´½« SQL Óï¾ä·¢ËÍµ½Êý¾Ý¿â¡£
-	    	String str = "select * from affair";	    	
+	    	stmt = con.createStatement();//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¾ï¿½Ì¬ SQL ï¿½ï¿½ä²¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó¡£´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ Statement ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SQL ï¿½ï¿½ä·¢ï¿½Íµï¿½ï¿½ï¿½ï¿½Ý¿â¡£
+	    	String str = "select * from affair";  	
 			rs = stmt.executeQuery(str);		
-			while(rs.next()){ //ÖðÐÐ¶ÁÈ¡
+			while(rs.next()){ //ï¿½ï¿½ï¿½Ð¶ï¿½È¡
 				num++;				
 			}
 		}catch(Exception e){e.printStackTrace();
@@ -50,13 +50,14 @@ public class AffairHandle {
 		int num = affair.getAffairId();
 		String title = affair.getTitle();
 		String content = affair.getContent();
-		Date fbTime = affair.getFbTime();
+		long fbTime = affair.getFbTime();
 		int sortId = affair.getSortId();
 		try{
 	    	con = DatabaseFactory.connectDatabase();
 		    if(con==null){
+		    	return false;
 		    }
-	    	stmt = con.createStatement();//ÓÃÓÚÖ´ÐÐ¾²Ì¬ SQL Óï¾ä²¢·µ»ØËüËùÉú³É½á¹ûµÄ¶ÔÏó¡£´´½¨Ò»¸ö Statement ¶ÔÏóÀ´½« SQL Óï¾ä·¢ËÍµ½Êý¾Ý¿â¡£
+	    	stmt = con.createStatement();//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¾ï¿½Ì¬ SQL ï¿½ï¿½ä²¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó¡£´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ Statement ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SQL ï¿½ï¿½ä·¢ï¿½Íµï¿½ï¿½ï¿½ï¿½Ý¿â¡£
 	    	String str = "insert into affair values(";
 	    	str+=num+",'"+title+"','"+content+"','"+fbTime+"',"+sortId+")";
 			stmt.executeUpdate(str);

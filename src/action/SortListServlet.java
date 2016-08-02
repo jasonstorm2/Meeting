@@ -30,10 +30,7 @@ public class SortListServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPost(req, resp);
-		SortHandle handle = new SortHandle();
-		List<Sort> list = handle.getSorts();
-		req.setAttribute("sortList", list);
-		req.getRequestDispatcher("affairs_add.jsp").forward(req, resp);
+
 	}
 
 }

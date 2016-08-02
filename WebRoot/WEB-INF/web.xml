@@ -28,6 +28,15 @@
     <servlet-name>AffairsAdd</servlet-name>
     <url-pattern>/AffairsAdd</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>studyServlet</servlet-name>
+    <servlet-class>table.affair.studyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>studyServlet</servlet-name>
+    <url-pattern>/studyServlet</url-pattern>
+  </servlet-mapping>
     
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

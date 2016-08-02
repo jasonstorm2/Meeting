@@ -10,7 +10,7 @@ public class DatabaseFactory {
 		Connection con = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String url = "jdbc:mysql://localhost:3306/user_login?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
+			String url = "jdbc:mysql://localhost:3306/user_login?useUnicode=true&characterEncoding=gb2312&useSSL=false";
 			System.out.println("成功加载驱动！");			
 			con = DriverManager.getConnection(url,"root","root");
 			System.out.println("成功连接数据库！");

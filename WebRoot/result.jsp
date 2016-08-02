@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GB2312">
-<title>Login page</title>
+<title>添加结果</title>
 </head>
 <body>
 <% String s = (String)request.getAttribute("re");%>

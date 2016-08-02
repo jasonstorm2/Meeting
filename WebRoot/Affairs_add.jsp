@@ -2,32 +2,32 @@
 <%@page import="java.util.List"%>
 <%@page import="table.sort.Sort"%>
 <%@ page language="java" contentType="text/html; charset=GB2312"
-    pageEncoding="UTF-8"%>
+    pageEncoding="GB2312"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GB2312">
-<title>Insert title here</title>
+<title>班级事务发布</title>
 </head>
 
 
 <style type = "text/css">
 <!--
 .STYLE2{
-   font-family:"瀹嬩綋";font-size:32px;font-weight:bold;
+   font-family:"宋体";font-size:32px;font-weight:bold;
 }
 -->
 </style>
 
 <body>
 <%  Sort sort = new Sort();
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")	
 	List<Sort> list = (ArrayList<Sort>)request.getAttribute("sortList"); %>
-	<br><div align="center">鐝骇浜嬪姟鍙戝竷
+	<br><div align="center">班级事务发布
 	<form method ="post" action="AffairsAdd" style="">
-		<font size="2">浜嬪姟鏍囬锛�</font>&nbsp;
+		<font size="2">事务标题：</font>&nbsp;
 		<input type="text" size="60" name="title">&nbsp;
-		<font size="2">鏍忕洰锛�</font>&nbsp;
+		<font size="2">栏目：</font>&nbsp;
 		<select name="sort">
 				<%
 		int num = list.size();
@@ -40,7 +40,7 @@
 		</select>
 		<p>
 		<textarea cols="80" rows="15"name="content"></textarea>
-		<br><input type="submit" value="浜嬪姟鍙戝竷" name="fabu">
+		<br><input type="submit" value="事务发布" name="fabu">
 		</p>	
 	</form>	
 	</div>

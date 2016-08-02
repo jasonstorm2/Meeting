@@ -8,7 +8,7 @@ public class Affair {
 	Integer affairId;
 	String title;
 	String content;
-	Date  fbTime;
+	long  fbTime;
 	Integer sortId;
 	public Integer getAffairId() {
 		return affairId;
@@ -28,10 +28,10 @@ public class Affair {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getFbTime() {
+	public long getFbTime() {
 		return fbTime;
 	}
-	public void setFbTime(Date fbTime) {
+	public void setFbTime(long fbTime) {
 		this.fbTime = fbTime;
 	}
 	public Integer getSortId() {

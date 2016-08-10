@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div align="center">
     <img src="pic/delete.gif" width="25" height="25"><a href="query_title.jsp" >按标题关键字查询</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="pic/modify.gif" width="25" height="25"><a href="query_time.jsp">按时间查询</a>
+    <img src="pic/modify.gif" width="25" height="25"><a href="Query">按时间查询</a>
     </div>
   </body>
 </html>

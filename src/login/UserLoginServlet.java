@@ -1,6 +1,7 @@
 package login;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import table.affair.Affair;
+import table.affair.AffairHandle;
+import table.sort.Sort;
+import table.sort.SortHandle;
 import utils.util;
 
 
@@ -49,7 +54,13 @@ public class UserLoginServlet extends HttpServlet {
 		user = userHandle.userLogin(user);
 		
 		if(user!=null){
+			List<Affair> list = new AffairHandle().getAffairs();
+			List<Sort> sortList = new SortHandle().getSorts();
+			
 			request.setAttribute("user", user);
+			request.setAttribute("affairList", list);
+			request.setAttribute("sortList", sortList);
+			
 			request.getRequestDispatcher("left.jsp").forward(request, response);
 		}else{
 			request.getRequestDispatcher("login_fail.jsp").forward(request, response);

@@ -19,19 +19,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<br>
 		<h3>按时间段查询班级事务</h3>
 		<form method="post" action="QueryTime">
-			<br> <br> <font size="">请选择年份:</font> <select name="year">
+			<br> <br> <font size="">请选择年份:</font> 
+			<select name="year">
 				<%
-  for(int i=0;i<list1.size();i++){%>
+				if(list1!=null&&!list1.isEmpty()){
+				for(int i=0;i<list1.size();i++){%>
 				<option value="<%= list1.get(i)%>">
-					<%=list1.get(i) %></option> }
-				<%} %>
-			</select> <font size="">请选择时间:</font> <select name="month">
+					<%=list1.get(i) %></option>
+				<%}}%>
+			</select> 
+			
+			<font size="">请选择时间:</font> 
+			
+			<select name="month">
 				<%
-  for(int i=0;i<list2.size();i++){%>
-				<option value="<%= list2.get(i)%>">
-					<%=list2.get(i) %></option>
-				<%} %>
+				if(list2!=null&&!list2.isEmpty()){				
+                for(int i=0;i<list2.size();i++){%>
+				<option value="<%= i%>">	<%=list2.get(i) %></option>
+				<%}} %>
 			</select> <br>
+			
 			<br> <input type="submit" value="提交" name="query">
 		</form>
 	</div>

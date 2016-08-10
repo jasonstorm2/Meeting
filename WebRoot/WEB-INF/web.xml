@@ -119,6 +119,15 @@
     <url-pattern>/QueryTime</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+    <servlet-name>Query</servlet-name>
+    <servlet-class>action.Query</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Query</servlet-name>
+    <url-pattern>/Query</url-pattern>
+  </servlet-mapping>
+  
     <!-- ==================== Default Session Configuration ================= -->
   <!-- You can set the default session timeout (in minutes) for all newly   -->
   <!-- created sessions by modifying the value below.                       -->

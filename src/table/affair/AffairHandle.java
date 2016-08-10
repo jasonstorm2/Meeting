@@ -5,7 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import database.DatabaseFactory;
 
@@ -220,6 +224,46 @@ public class AffairHandle {
 	}
 	
 	/**
+	 * 得到所有的事务
+	 * @return
+	 */
+	public List<Affair> getAffairs(){
+		List<Affair> list = new ArrayList<Affair>();
+		Affair s ;	    
+	    try {
+	    	con = DatabaseFactory.connectDatabase();
+		    if(con==null){
+		    	return null;
+		    }
+	    	stmt = con.createStatement();//用于执行静态 SQL 语句并返回它所生成结果的对象。创建一个 Statement 对象来将 SQL 语句发送到数据库。
+	    	String str = "select * from affair";	
+			rs = stmt.executeQuery(str);	
+			
+			while(rs.next()){ //逐行读取
+				s = new Affair();
+				s.setSortId(rs.getInt("sortId")); //读取 指定名称 的字段值。注意读取的数值类型 要与 数据库的存放类型 一致！！
+				s.setAffairId(rs.getInt("affairId"));
+				s.setContent(rs.getString("content"));
+				s.setTitle(rs.getString("title"));
+				s.setFbTime(rs.getLong("fbTime"));
+				list.add(s);				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}			
+		}
+		return list;
+	}
+	
+	/**
 	 * 通过affairId 获得 Affair对象
 	 * @param affairId
 	 * @return
@@ -324,11 +368,111 @@ public class AffairHandle {
 		return list;
 	}
 	public List<String> getYears(){
-		return null;
+		Calendar calendar = Calendar.getInstance(); 
+		List<String> list = new ArrayList<String>();
+		HashSet<String> hs = null;
+		try {
+	    	con = DatabaseFactory.connectDatabase();
+		    if(con==null){
+		    	return null;
+		    }
+	    	stmt = con.createStatement();//用于执行静态 SQL 语句并返回它所生成结果的对象。创建一个 Statement 对象来将 SQL 语句发送到数据库。
+	    	String str = "select * from affair";	
+			rs = stmt.executeQuery(str);	
+			
+			while(rs.next()){ //逐行读取
+		        calendar.setTimeInMillis(rs.getLong("fbTime"));
+		        int year = calendar.get(Calendar.YEAR);
+				list.add(String.valueOf(year));
+				hs = new HashSet<String>(list);
+				list = new ArrayList<String>(hs);
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}			
+		}
+		return list;
 	}
 	
-	public List<Affair> queryByTime(String year,String month){
-		return null;
+	public List<Affair> queryByTime(String year,Integer month){
+		Calendar ca = Calendar.getInstance();
+		Calendar ca2 = Calendar.getInstance();
+		String str = null;
+		long time1 = 0;
+		long time2 = 0;		
+		switch (month) {
+		case 0:
+			ca.set(Integer.valueOf(year), 0, 1);
+			ca2.set(Integer.valueOf(year), 11, 30);
+			time2 = ca2.getTimeInMillis();
+			time1 = ca.getTimeInMillis();
+			str = "select * from affair where fbTime>='"+time1+"' And fbTime<'"+time2+"'" ;
+//			str = "select * from affair where fbTime between'"+time1+"' And '"+time2+"'" ;
+			
+			break;
+		case 1:
+			ca.set(Integer.valueOf(year), 0, 1);
+			ca2.set(Integer.valueOf(year), 6, 1);
+			time1 = ca.getTimeInMillis();
+			time2 = ca2.getTimeInMillis();
+			str = "select * from affair where fbTime>='"+time1+"' And fbTime<'"+time2+"'";
+//			str = "select * from affair where fbTime between'"+time1+"' And '"+time2+"'" ;
+			
+			break;
+		case 2:
+			ca.set(Integer.valueOf(year), 6, 1);
+			ca2.set(Integer.valueOf(year), 11, 1);
+			time1 = ca.getTimeInMillis();
+			time2 = ca2.getTimeInMillis();
+			str = "select * from affair where fbTime>='"+time1+"' And fbTime<'"+time2+"'";
+//			str = "select * from affair where fbTime between'"+time1+"' And '"+time2+"'" ;
+			
+			break;
+		}
+		if(year == null||month==null){
+			return null;
+		}
+		List<Affair> list = new ArrayList<Affair>();
+		Affair a = null;
+		try {
+			con = DatabaseFactory.connectDatabase();
+			if(con ==null){
+				return null;
+			}
+			stmt = con.createStatement();
+			
+			rs = stmt.executeQuery(str);
+			while(rs.next()){
+				a = new Affair();
+				a.setSortId(rs.getInt("sortId")); //读取 指定名称 的字段值。注意读取的数值类型 要与 数据库的存放类型 一致！！
+				a.setAffairId(rs.getInt("affairId"));
+				a.setContent(rs.getString("content"));
+				a.setTitle(rs.getString("title"));
+				a.setFbTime(rs.getLong("fbTime"));
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return list;
 	}
 
 }

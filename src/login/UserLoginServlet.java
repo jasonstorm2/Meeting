@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import utils.util;
 
 
 public class UserLoginServlet extends HttpServlet {
@@ -25,8 +28,18 @@ public class UserLoginServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)//登陆表单 post 传到 sevrlet对象
 			throws ServletException, IOException {
 		request.setCharacterEncoding("gb2312");
-		String userName = request.getParameter("userName");
-		String userPassword = request.getParameter("userPassword");
+		String userName = util.getString(request.getParameter("userName"));
+		String userPassword = util.getString(request.getParameter("userPassword"));
+		
+		//使用request对象的getSession()获取session，如果session不存在则创建一个
+		HttpSession session = request.getSession();
+		//将数据存储到session中
+		session.setAttribute("userName", userName);
+		if(session.isNew()){
+			System.out.println("这个session是新的！！！！");
+		}else{
+			System.out.println("已经创建过这个session啦。。。。。");
+		}
 		
 		User user = new User();
 		user.setUserName(userName);

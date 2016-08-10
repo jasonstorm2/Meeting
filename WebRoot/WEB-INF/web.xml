@@ -28,15 +28,110 @@
     <servlet-name>AffairsAdd</servlet-name>
     <url-pattern>/AffairsAdd</url-pattern>
   </servlet-mapping>
-  
+    
   <servlet>
-    <servlet-name>studyServlet</servlet-name>
-    <servlet-class>table.affair.studyServlet</servlet-class>
+    <servlet-name>AffairsMaintain</servlet-name>
+    <servlet-class>table.affair.AffairsMaintain</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>studyServlet</servlet-name>
-    <url-pattern>/studyServlet</url-pattern>
+    <servlet-name>AffairsMaintain</servlet-name>
+    <url-pattern>/AffairsMaintain</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AffairsListMaintain</servlet-name>
+    <servlet-class>table.affair.AffairsListMaintain</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AffairsListMaintain</servlet-name>
+    <url-pattern>/AffairsListMaintain</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AffairsModify</servlet-name>
+    <servlet-class>table.affair.AffairsModify</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AffairsModify</servlet-name>
+    <url-pattern>/AffairsModify</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>AffairsUpdate</servlet-name>
+    <servlet-class>action.AffairsUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AffairsUpdate</servlet-name>
+    <url-pattern>/AffairsUpdate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AffairsDelete</servlet-name>
+    <servlet-class>action.AffairsDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AffairsDelete</servlet-name>
+    <url-pattern>/AffairsDelete</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AffairDetail</servlet-name>
+    <servlet-class>action.AffairDetail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AffairDetail</servlet-name>
+    <url-pattern>/AffairDetail</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AffairListView</servlet-name>
+    <servlet-class>table.affair.AffairListView</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AffairListView</servlet-name>
+    <url-pattern>/AffairListView</url-pattern>
+  </servlet-mapping>  
+
+  <servlet>
+    <servlet-name>CommentAdd</servlet-name>
+    <servlet-class>table.comment.CommentAdd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentAdd</servlet-name>
+    <url-pattern>/CommentAdd</url-pattern>
+  </servlet-mapping> 
+  
+   <servlet>
+    <servlet-name>QueryTitle</servlet-name>
+    <servlet-class>action.QueryTitle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QueryTitle</servlet-name>
+    <url-pattern>/QueryTitle</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>QueryTime</servlet-name>
+    <servlet-class>action.QueryTime</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QueryTime</servlet-name>
+    <url-pattern>/QueryTime</url-pattern>
+  </servlet-mapping>
+  
+    <!-- ==================== Default Session Configuration ================= -->
+  <!-- You can set the default session timeout (in minutes) for all newly   -->
+  <!-- created sessions by modifying the value below.                       -->
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+<!--     监听器注册 -->
+    <listener> 
+		<listener-class> 
+			Listener.mySessionListener 
+		</listener-class> 
+	</listener>
     
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

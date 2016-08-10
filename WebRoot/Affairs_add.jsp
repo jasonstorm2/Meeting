@@ -24,9 +24,13 @@
 	@SuppressWarnings("unchecked")	
 	List<Sort> list = (ArrayList<Sort>)request.getAttribute("sortList"); %>
 	<br><div align="center">班级事务发布
+	
 	<form method ="post" action="AffairsAdd" style="">
+	
 		<font size="2">事务标题：</font>&nbsp;
-		<input type="text" size="60" name="title">&nbsp;
+		
+		<input type="text" size="40" name="title">&nbsp;
+		
 		<font size="2">栏目：</font>&nbsp;
 		<select name="sort">
 				<%
@@ -38,10 +42,12 @@
 		 <%=sort.getName() %></option>
 		 <% } %>
 		</select>
+		
 		<p>
 		<textarea cols="80" rows="15"name="content"></textarea>
 		<br><input type="submit" value="事务发布" name="fabu">
-		</p>	
+		</p>
+
 	</form>	
 	</div>
 </body>

@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Comment {
 	Integer commentId;
 	String content;
-	Date plTime;
+	long plTime;
 	String author;
 	Integer affairId;
 	public Integer getCommentId() {
@@ -20,10 +20,10 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getPlTime() {
+	public long getPlTime() {
 		return plTime;
 	}
-	public void setPlTime(Date plTime) {
+	public void setPlTime(long plTime) {
 		this.plTime = plTime;
 	}
 	public String getAuthor() {

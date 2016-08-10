@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-import table.sort.Sort;
 import database.DatabaseFactory;
 
 public class AffairHandle {
@@ -15,19 +15,52 @@ public class AffairHandle {
 	ResultSet rs;
 	
 	/**
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý±ï¿½ ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
+	 * Éú³É´¢´æµÄ Î¨Ò» id
 	 * @return
 	 */
-	public int recordCount(){
+	public int recordCount() {
+		int num = 0;
+		try {
+			con = DatabaseFactory.connectDatabase();
+			if (con == null) {
+				return -1;
+			}
+			stmt = con.createStatement();
+			String str2 = "select max(affairId) from affair limit 0,1";
+			rs = stmt.executeQuery(str2);
+			int rows = rs.getRow();
+			while (rs.next()) {
+				num = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return num;
+	}
+	
+	/**
+	 * »ñµÃ´æ´¢ÌõÄ¿µÄÊýÁ¿
+	 * @return
+	 */
+	public int getCount(){
 		int num=0;
 		try{
 	    	con = DatabaseFactory.connectDatabase();
 		    if(con==null){
 		    }
-	    	stmt = con.createStatement();//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¾ï¿½Ì¬ SQL ï¿½ï¿½ä²¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó¡£´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ Statement ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SQL ï¿½ï¿½ä·¢ï¿½Íµï¿½ï¿½ï¿½ï¿½Ý¿â¡£
+	    	stmt = con.createStatement();
 	    	String str = "select * from affair";  	
 			rs = stmt.executeQuery(str);		
-			while(rs.next()){ //ï¿½ï¿½ï¿½Ð¶ï¿½È¡
+			while(rs.next()){ 
 				num++;				
 			}
 		}catch(Exception e){e.printStackTrace();
@@ -41,10 +74,14 @@ public class AffairHandle {
 			}
 			
 		}
-		return num;
-		
+		return num;		
 	}
 	
+	/**
+	 * ±£´æÊý¾Ý¿â
+	 * @param affair
+	 * @return
+	 */
 	public boolean save(Affair affair){
 		boolean boo = false;
 		int num = affair.getAffairId();
@@ -57,9 +94,10 @@ public class AffairHandle {
 		    if(con==null){
 		    	return false;
 		    }
-	    	stmt = con.createStatement();//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¾ï¿½Ì¬ SQL ï¿½ï¿½ä²¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó¡£´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ Statement ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SQL ï¿½ï¿½ä·¢ï¿½Íµï¿½ï¿½ï¿½ï¿½Ý¿â¡£
+	    	stmt = con.createStatement();
 	    	String str = "insert into affair values(";
 	    	str+=num+",'"+title+"','"+content+"','"+fbTime+"',"+sortId+")";
+	    	//insert into affair values(5,'¸è³ª±ÈÈü','¸è³ª±ÈÈü¿ìÒª¾ÙÐÐÁË¡£¡£¡£¡£','1470204668573',2)
 			stmt.executeUpdate(str);
 			boo = true;
 			
@@ -75,6 +113,222 @@ public class AffairHandle {
 			
 		}
 		return boo;
+	}
+	
+	public boolean update(Affair a){
+		boolean re = false;
+		int affairId = a.getAffairId();
+		String title = a.getTitle();
+		String content = a.getContent();
+		long time = a.getFbTime();
+		int sortId = a.getSortId();
+		
+		con = DatabaseFactory.connectDatabase();
+		if(con == null){
+			return false;
+		}
+		try {
+			stmt = con.createStatement();
+			String str = "update affair set title='"+title+"'"+",content='"
+			+content+"'"+",fbTime='"+time+"'"+",sortId='"+sortId+"' where affairId = '"+affairId+"'";
+			stmt.executeUpdate(str);
+			re = true;			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return re;
+	}	
+	/**
+	 * É¾³ýÖ¸¶¨idµÄ×Ö¶Î
+	 * @param affairId
+	 * @return
+	 */
+	public boolean delete(int affairId){
+		boolean re = false;
+		con = DatabaseFactory.connectDatabase();
+		if(con==null){
+	    	return false;
+	    }
+		try {
+			stmt = con.createStatement();
+			String str = "delete from affair where affairId = '"+affairId+"'";
+			stmt.executeUpdate(str);			
+			re = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}		
+		return re;		
+	}
+	/**
+	 * µÃµ½Ö¸¶¨ sortIdµÄÊÂÎñ
+	 * @param sortId
+	 * @return
+	 */
+	public List<Affair> affairsList(int sortId){
+		List<Affair> list = new ArrayList<Affair>();
+		Affair s ;
+	    
+	    try {
+	    	con = DatabaseFactory.connectDatabase();
+		    if(con==null){
+		    	return null;
+		    }
+	    	stmt = con.createStatement();//ÓÃÓÚÖ´ÐÐ¾²Ì¬ SQL Óï¾ä²¢·µ»ØËüËùÉú³É½á¹ûµÄ¶ÔÏó¡£´´½¨Ò»¸ö Statement ¶ÔÏóÀ´½« SQL Óï¾ä·¢ËÍµ½Êý¾Ý¿â¡£
+	    	String str = "select * from affair where sortId = '"+sortId+"'";	
+			rs = stmt.executeQuery(str);	
+			
+			while(rs.next()){ //ÖðÐÐ¶ÁÈ¡
+				s = new Affair();
+				s.setSortId(rs.getInt("sortId")); //¶ÁÈ¡ Ö¸¶¨Ãû³Æ µÄ×Ö¶ÎÖµ¡£×¢Òâ¶ÁÈ¡µÄÊýÖµÀàÐÍ ÒªÓë Êý¾Ý¿âµÄ´æ·ÅÀàÐÍ Ò»ÖÂ£¡£¡
+				s.setAffairId(rs.getInt("affairId"));
+				s.setContent(rs.getString("content"));
+				s.setTitle(rs.getString("title"));
+				s.setFbTime(rs.getLong("fbTime"));
+				list.add(s);				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}			
+		}
+		return list;
+	}
+	
+	/**
+	 * Í¨¹ýaffairId »ñµÃ Affair¶ÔÏó
+	 * @param affairId
+	 * @return
+	 */
+	public Affair getAffairById(int affairId){
+		Affair s =null;	    
+	    try {
+	    	con = DatabaseFactory.connectDatabase();
+		    if(con==null){
+		    	return null;
+		    }
+	    	stmt = con.createStatement();//ÓÃÓÚÖ´ÐÐ¾²Ì¬ SQL Óï¾ä²¢·µ»ØËüËùÉú³É½á¹ûµÄ¶ÔÏó¡£´´½¨Ò»¸ö Statement ¶ÔÏóÀ´½« SQL Óï¾ä·¢ËÍµ½Êý¾Ý¿â¡£
+	    	String str = "select * from affair where affairId = '"+affairId+"'";	
+			rs = stmt.executeQuery(str);	
+			
+			while(rs.next()){ //ÖðÐÐ¶ÁÈ¡
+				s = new Affair();
+				s.setSortId(rs.getInt("sortId")); //¶ÁÈ¡ Ö¸¶¨Ãû³Æ µÄ×Ö¶ÎÖµ¡£×¢Òâ¶ÁÈ¡µÄÊýÖµÀàÐÍ ÒªÓë Êý¾Ý¿âµÄ´æ·ÅÀàÐÍ Ò»ÖÂ£¡£¡
+				s.setAffairId(rs.getInt("affairId"));
+				s.setContent(rs.getString("content"));
+				s.setTitle(rs.getString("title"));
+				s.setFbTime(rs.getLong("fbTime"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}			
+		}
+		return s;
+	}
+	
+	/**
+	 * ¸ù¾ÝÉ¾³ýµÄ ÊÂÎñºÅ£¬ÖØÐÂÅÅÁÐÊÂÎñÐòÁÐ
+	 * @param affairId
+	 */
+	public void reSorting(int affairId) {
+		int num = getCount();
+		String str;
+		try {
+			con = DatabaseFactory.connectDatabase();
+			for (int i = affairId; i < num; i++) {
+				str = "update affair set affairId = '" + i + "' where affairId ='" + affairId + 1 + "'";
+				stmt = con.createStatement();
+				stmt.executeUpdate(str);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally{
+			try {
+				con.close();
+				stmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}			
+		}
+	}
+	
+	public List<Affair> queryByTitle(String key){
+		if(key == null){
+			return null;
+		}
+		List<Affair> list = new ArrayList<Affair>();
+		Affair a = null;
+		try {
+			con = DatabaseFactory.connectDatabase();
+			if(con ==null){
+				return null;
+			}
+			stmt = con.createStatement();
+			String str = "select * from affair where title like '%"+key+"%'";
+			rs = stmt.executeQuery(str);
+			while(rs.next()){
+				a = new Affair();
+				a.setSortId(rs.getInt("sortId")); //¶ÁÈ¡ Ö¸¶¨Ãû³Æ µÄ×Ö¶ÎÖµ¡£×¢Òâ¶ÁÈ¡µÄÊýÖµÀàÐÍ ÒªÓë Êý¾Ý¿âµÄ´æ·ÅÀàÐÍ Ò»ÖÂ£¡£¡
+				a.setAffairId(rs.getInt("affairId"));
+				a.setContent(rs.getString("content"));
+				a.setTitle(rs.getString("title"));
+				a.setFbTime(rs.getLong("fbTime"));
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return list;
+	}
+	public List<String> getYears(){
+		return null;
+	}
+	
+	public List<Affair> queryByTime(String year,String month){
+		return null;
 	}
 
 }

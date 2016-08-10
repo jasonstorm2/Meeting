@@ -24,3 +24,5 @@ Eclipse中关于JRE System Library、Web App Libraries的疑惑
 包，都会在WEB-INF/lib文件夹下生成。当然，如果你直接在WEB-INF/lib文件夹下，copy一个jar进入，刷新一下，Web App Libraries
 
 也会自动增加一个jar的引用。简单说，Java EE Module Dependencies的配置只针对Web App Libraries的。
+
+2.图片要放在webroot目录下才能用吗？webroot是相对目录

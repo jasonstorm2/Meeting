@@ -16,6 +16,9 @@ Affair affair = (Affair) request.getAttribute("affair");
 		String sortName = (String) request.getAttribute("sortName");
 		List<Comment> commentList = (List<Comment>) request.getAttribute("commentList");
 		String userName = (String) request.getAttribute("userName");
+		HttpSession ss = request.getSession();
+		//将数据存储到session中
+		Boolean isAdmin = (Boolean)ss.getAttribute("isAdmin");
 	%>
 	<table border="0px" cellspacing="0" cellpadding="10" align="center"
 		width="70%" noborder>
@@ -48,6 +51,10 @@ Affair affair = (Affair) request.getAttribute("affair");
 	%>
 	<hr align="left" width="80%">
 	<font size="2" color="000ff"> <%= com.getAuthor()%> 评论 &nbsp; &nbsp; &nbsp;评论日期：<%= str2%></font>
+	<%
+	if(isAdmin){%>
+		<font size="2" color="000ff"><a href="CommentDelete?commentId=<%= com.getCommentId()%>&affairId=<%= affair.getAffairId()%>">删除</a></font>
+	<%}%>
 	<p>
 	<font size="2"><%= com.getContent() %></font>
 	<% }}%>

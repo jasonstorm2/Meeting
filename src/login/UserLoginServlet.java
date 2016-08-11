@@ -60,6 +60,7 @@ public class UserLoginServlet extends HttpServlet {
 			request.setAttribute("user", user);
 			request.setAttribute("affairList", list);
 			request.setAttribute("sortList", sortList);
+			session.setAttribute("isAdmin", user.isAdmin());//在内存中添加是否是管理员
 			//是否管理员
 			if(user.isAdmin()){
 				request.getRequestDispatcher("left.jsp").forward(request, response);

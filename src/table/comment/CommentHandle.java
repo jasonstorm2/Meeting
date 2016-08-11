@@ -46,6 +46,32 @@ public class CommentHandle {
 		return re;		
 	}
 	
+	public boolean deleteByCommetId(int commentId){
+		boolean re = false;
+		con = DatabaseFactory.connectDatabase();
+		if(con==null){
+	    	return false;
+	    }
+		try {
+			stmt = con.createStatement();
+			String str = "delete from comment where commentId = '"+commentId+"'";
+			stmt.executeUpdate(str);			
+			re = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}		
+		return re;		
+	}
+	
 	public ArrayList<Comment> getCommentByAffairId(int affairId){
 		Comment com = null;
 		ArrayList<Comment> list = new ArrayList<Comment>();

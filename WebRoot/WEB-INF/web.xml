@@ -128,7 +128,8 @@
     <url-pattern>/Query</url-pattern>
   </servlet-mapping>
   
-   <servlet>
+
+ <servlet>
     <servlet-name>CommentDelete</servlet-name>
     <servlet-class>table.comment.CommentDelete</servlet-class>
   </servlet>
@@ -136,6 +137,7 @@
     <servlet-name>CommentDelete</servlet-name>
     <url-pattern>/CommentDelete</url-pattern>
   </servlet-mapping>
+
     <!-- ==================== Default Session Configuration ================= -->
   <!-- You can set the default session timeout (in minutes) for all newly   -->
   <!-- created sessions by modifying the value below.                       -->

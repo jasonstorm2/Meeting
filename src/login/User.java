@@ -54,11 +54,11 @@ public class User {
 		this.userPassword = userPassword;
 	}
 	
+
 	public boolean isAdmin() {
 		return isAdmin;
 	}
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
-	}	
-
+	}
 }

@@ -46,6 +46,7 @@ public class CommentHandle {
 		return re;		
 	}
 	
+<<<<<<< HEAD
 	public boolean deleteByCommetId(int commentId){
 		boolean re = false;
 		con = DatabaseFactory.connectDatabase();
@@ -72,6 +73,8 @@ public class CommentHandle {
 		return re;		
 	}
 	
+=======
+>>>>>>> 47f5d4e24756b38381bebdf3bbc01e6c12d0bcc1
 	public ArrayList<Comment> getCommentByAffairId(int affairId){
 		Comment com = null;
 		ArrayList<Comment> list = new ArrayList<Comment>();

@@ -17,6 +17,8 @@ public class UserHandle {
 	public User userLogin(User user){
 		String userName = user.getUserName();
 	    String userPassword = user.getUserPassword();
+
+	    boolean isExact = false;
 	    if(userName==null || userPassword==null){
 	    	return null;
 	    }
@@ -54,12 +56,14 @@ public class UserHandle {
 				}else{
 					user.setAddress("Пе");	
 				}
+
 				
 				if(rs.getString(8)!=null){
 					user.setAdmin(rs.getBoolean(8));
 				}else{
 					user.setAdmin(false);
 				}
+				isExact = true;
 							
 			}else{
 				user = null;
@@ -71,6 +75,9 @@ public class UserHandle {
 		}finally{
 			try {
 				rs.close();
+				if(isExact){
+					rs.close();
+				}
 				stmt.close();
 				con.close();
 			} catch (Exception e2) {

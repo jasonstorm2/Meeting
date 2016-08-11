@@ -21,5 +21,5 @@ public enum User {
 	address,
 	@Column(type = boolean.class, comment = "是否管理员")
 	isAdmin,
-	
+
 }

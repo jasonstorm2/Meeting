@@ -66,9 +66,7 @@ public class UserLoginServlet extends HttpServlet {
 				request.getRequestDispatcher("left.jsp").forward(request, response);
 			}else{
 				request.getRequestDispatcher("left2.jsp").forward(request, response);
-			}		
-			
-			request.getRequestDispatcher("left.jsp").forward(request, response);
+			}				
 		}else{
 			request.getRequestDispatcher("login_fail.jsp").forward(request, response);
 		}

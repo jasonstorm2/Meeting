@@ -60,8 +60,13 @@ public class UserLoginServlet extends HttpServlet {
 			request.setAttribute("user", user);
 			request.setAttribute("affairList", list);
 			request.setAttribute("sortList", sortList);
+			//是否管理员
+			if(user.isAdmin()){
+				request.getRequestDispatcher("left.jsp").forward(request, response);
+			}else{
+				request.getRequestDispatcher("left2.jsp").forward(request, response);
+			}
 			
-			request.getRequestDispatcher("left.jsp").forward(request, response);
 		}else{
 			request.getRequestDispatcher("login_fail.jsp").forward(request, response);
 		}

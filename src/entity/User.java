@@ -19,4 +19,7 @@ public enum User {
 	email,
 	@Column(type = String.class, length = 64, comment = "地址")
 	address,
+	@Column(type = boolean.class, comment = "是否管理员")
+	isAdmin,
+	
 }

@@ -8,6 +8,7 @@ public class User {
 	private String gender;
 	private String email;
 	private String address;
+	private boolean isAdmin;
 	
 	
 	public int getNumber() {
@@ -53,5 +54,11 @@ public class User {
 		this.userPassword = userPassword;
 	}
 	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}	
 
 }

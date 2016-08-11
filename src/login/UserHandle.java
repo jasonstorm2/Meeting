@@ -54,6 +54,12 @@ public class UserHandle {
 				}else{
 					user.setAddress("Пе");	
 				}
+				
+				if(rs.getString(8)!=null){
+					user.setAdmin(rs.getBoolean(8));
+				}else{
+					user.setAdmin(false);
+				}
 							
 			}else{
 				user = null;

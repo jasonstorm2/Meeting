@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebRoot/login.jsp=UTF-8
+encoding//src/action/SortListServlet.java=GBK
 encoding//src/table/affair/AffairHandle.java=GBK
+encoding/<project>=GBK
 encoding/WebRoot=UTF-8

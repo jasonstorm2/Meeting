@@ -27,19 +27,32 @@ public class AffairsUpdate extends HttpServlet{
 		req.setCharacterEncoding("GB2312");
 		Affair a = new Affair();
 		AffairHandle ah = new AffairHandle();	
-		int sortId = Integer.parseInt(req.getParameter("sortPart"));
 		
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
+		int sortId = Integer.parseInt(req.getParameter("sortPart"));
+
 		Integer affairId = Integer.valueOf(req.getParameter("affairId"));
+		boolean isAdd = false;
+		if(affairId==-1){
+			isAdd = true;
+			affairId = ah.recordCount() +1;
+		}
 		
 		a.setAffairId(affairId.intValue());
 		a.setTitle(title);
 		a.setContent(content);
 		a.setFbTime(System.currentTimeMillis());
 		a.setSortId(sortId);
+		
+		boolean re = false;
+		if(isAdd){
+			re = ah.save(a);
+		}else{
+			re = ah.update(a);
+		}
 
-		if(ah.update(a)){
+		if(re){
 			req.setAttribute("re","修改记录成功");
 		}else{
 			req.setAttribute("re", "修改记录失败");

@@ -33,10 +33,9 @@
 	<form method ="post" action="AffairsUpdate" style="">
 <!-- 	<form method ="post" action="AffairsUpdate?affair=<%= af.getAffairId()%>" style=""> -->
 		<font size="2">事务标题：</font>&nbsp;
-<!-- 		隐藏域 -->
 		<input type="hidden" name="affairId" value=<%= af.getAffairId()%>>
 		<input type="text" size="40" name="title" value="<%= af.getTitle()%>" >&nbsp;	
-		
+		<font size="2">栏目：</font>&nbsp;
 		<select name="sortPart" id="sortId">
 		<option Selected value="<%= sortId%>"><%= sortName%></option>
 		<% 

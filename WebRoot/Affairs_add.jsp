@@ -25,21 +25,20 @@
 	List<Sort> list = (ArrayList<Sort>)request.getAttribute("sortList"); %>
 	<br><div align="center">班级事务发布
 	
-	<form method ="post" action="AffairsAdd" style="">
-	
+	<form method ="post" action="AffairsUpdate" style="">	
 		<font size="2">事务标题：</font>&nbsp;
-		
-		<input type="text" size="40" name="title">&nbsp;
-		
+		<input type="hidden" name="affairId" value="-1">		
+		<input type="text" size="40" name="title">&nbsp;		
 		<font size="2">栏目：</font>&nbsp;
-		<select name="sort">
-				<%
+		<select name="sortPart">
+		<%
 		int num = list.size();
 		for(int i=0;i< num;i++){
 		sort = (Sort)list.get(i);		
 		 %>
 		 <option value=<%=String.valueOf(sort.getSortId())%>>
-		 <%=sort.getName() %></option>
+		 <%=sort.getName() %>
+		 </option>
 		 <% } %>
 		</select>
 		

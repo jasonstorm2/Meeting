@@ -20,14 +20,7 @@
     <url-pattern>/SortListServlet</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>AffairsAdd</servlet-name>
-    <servlet-class>action.AffairsAdd</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AffairsAdd</servlet-name>
-    <url-pattern>/AffairsAdd</url-pattern>
-  </servlet-mapping>
+
     
   <servlet>
     <servlet-name>AffairsMaintain</servlet-name>
